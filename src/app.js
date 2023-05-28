@@ -37,11 +37,27 @@ function displayTemperature(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src", response.data.condition.icon_url);
 }
+function search(city) {
+  let apiKey = "b99atfd426b3cde797eo6c02fa816d9b";
+  let units = "imperial";
+  let apiURLCurrentWeather = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
+  axios.get(apiURLCurrentWeather).then(displayTemperature);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input");
+  cityInput = cityInput.value;
+  search(cityInput);
+}
 
 let apiKey = "b99atfd426b3cde797eo6c02fa816d9b";
-let city = document.querySelector("#city-input");
-city = city.value;
 let units = "imperial";
-let apiURLCurrentWeather = `https://api.shecodes.io/weather/v1/current?query=London&key=${apiKey}&units=${units}`;
-console.log(apiURLCurrentWeather);
+let city = "London";
+let apiURLCurrentWeather = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
 axios.get(apiURLCurrentWeather).then(displayTemperature);
+
+let form = document.querySelector("#submit-city");
+form.addEventListener("submit", handleSubmit);
+
+search("London");
