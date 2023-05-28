@@ -1,0 +1,56 @@
+body {
+  font-family: "Roboto", sans-serif;
+  color: #407088;
+}
+.appWrapper {
+  max-width: 600px;
+  margin: 30 auto;
+  padding: 20px;
+  border: 5px solid #ffb5b5;
+  border-radius: 8px;
+  background: #ffcbcb;
+}
+form {
+  margin-top: 25px;
+}
+h1 {
+  font-size: 24px;
+  line-height: 28.8px;
+  text-align: left;
+  margin-top: 10px;
+}
+.currentConditionText {
+  color: #f16b98;
+}
+.degrees {
+  font-size: small;
+  position: relative;
+  bottom: 10px;
+}
+h2 {
+  font-size: 50;
+}
+ul {
+  list-style: none;
+  position: relative;
+  right: 30px;
+}
+.col-2 {
+  list-style: none;
+  display: inline-block;
+  text-align: center;
+  margin-top: 15px;
+}
+.highTemp {
+  font-weight: 600;
+  color: #f16b98;
+}
+.lowTemp {
+  font-weight: 200;
+  color: #f16b98;
+}
+p {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
