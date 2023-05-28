@@ -27,7 +27,7 @@ function displayTemperature(response) {
   let conditionElement = document.querySelector("#condition");
   conditionElement.innerHTML = response.data.condition.description;
   let temperatureElement = document.querySelector("#current-temperature");
-  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
+  temperatureElement.innerHTML = Math.round(fTemp);
   let humidityElement = document.querySelector("#humidity");
   humidityElement.innerHTML = response.data.temperature.humidity;
   let windElement = document.querySelector("#wind");
@@ -36,6 +36,8 @@ function displayTemperature(response) {
   dateElement.innerHTML = formatDate(response.data.time * 1000);
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src", response.data.condition.icon_url);
+  fTemp = response.data.temperature.current;
+  imperialSpeed = response.data.wind.speed;
 }
 function search(city) {
   let apiKey = "b99atfd426b3cde797eo6c02fa816d9b";
@@ -57,7 +59,33 @@ let city = "London";
 let apiURLCurrentWeather = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
 axios.get(apiURLCurrentWeather).then(displayTemperature);
 
+function convertToMetric(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temperature");
+  let metricTemperature = Math.round(((fTemp - 32) * 5) / 9);
+  temperatureElement.innerHTML = metricTemperature;
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = Math.round(imperialSpeed * 1.609);
+  let speedUnit = document.querySelector("#speed-unit");
+  speedUnit.innerHTML = "kph";
+}
+function convertToImperial(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temperature");
+  temperatureElement.innerHTML = Math.round(fTemp);
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = Math.round(imperialSpeed);
+}
+let fTemp = null;
+let imperialSpeed = null;
+
 let form = document.querySelector("#submit-city");
 form.addEventListener("submit", handleSubmit);
+
+let convertC = document.querySelector("#convertC");
+convertC.addEventListener("click", convertToMetric);
+
+let convertF = document.querySelector("#convertF");
+convertF.addEventListener("click", convertToImperial);
 
 search("London");
