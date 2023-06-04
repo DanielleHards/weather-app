@@ -21,39 +21,37 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 function formatDay(timestamp) {
-  let date = new date(timestamp * 1000);
+  let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
   return days[day];
 }
 
 function displayForecast(response) {
-  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
-
   let forecastHTML = `<div class="row">`;
+  let forecast = response.data.daily;
   forecast.forEach(function (forecastDay, index) {
-    if (index < 6) {
+    if (index < 5) {
       forecastHTML =
         forecastHTML +
         `
-    <div class="col-2"
-        <ul class="weather-forecast-day">  
-            <li><span class="weather-forecast-date" id="day-1-name">${formatDay(
-              forecastDay.time
-            )}</span></li>
-            <li><span id="day-1-icon"><img
-          src=${forecastDay.condition.icon_url}
-          alt=""
-          width="42"
-        /></li>
-            <li> <span class="highTemp" id="high-temp">${Math.round(
-              forecastDay.temperature.maximum
-            )}°</span> <span class="lowTemp" id="low-temp"> | ${Math.round(
-          forecastDay.temperature.minimum
-        )}°</span></li>
-        </ul>
+    <div class="col-2">
+    <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
+    <img
+      src="${forecastDay.condition.icon_url}"
+      alt=""
+      width="42"
+      />
+      <div class="weather-forecast-temperatures">
+      <span class="highTemp">${Math.round(
+        forecastDay.temperature.maximum
+      )}°</span>
+      <span class="lowTemp"> | ${Math.round(
+        forecastDay.temperature.minimum
+      )}°</span>
+      </div>
+      </div>
       </div>
       `;
     }
@@ -61,7 +59,6 @@ function displayForecast(response) {
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
 
 function displayTemperature(response) {
@@ -81,13 +78,14 @@ function displayTemperature(response) {
   iconElement.setAttribute("src", response.data.condition.icon_url);
   fTemp = response.data.temperature.current;
   imperialSpeed = response.data.wind.speed;
+
+  getForecast(response.data.city);
 }
 
 function getForecast(city) {
   let apiKey = "b99atfd426b3cde797eo6c02fa816d9b";
   let units = "imperial";
   let apiURLForecast = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=${units}`;
-  console.log(apiURLForecast);
   axios.get(apiURLForecast).then(displayForecast);
 }
 function search(city) {
@@ -110,34 +108,10 @@ let city = "London";
 let apiURLCurrentWeather = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
 axios.get(apiURLCurrentWeather).then(displayTemperature);
 
-function convertToMetric(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#current-temperature");
-  let metricTemperature = Math.round(((fTemp - 32) * 5) / 9);
-  temperatureElement.innerHTML = metricTemperature;
-  let windElement = document.querySelector("#wind");
-  windElement.innerHTML = Math.round(imperialSpeed * 1.609);
-  let speedUnit = document.querySelector("#speed-unit");
-  speedUnit.innerHTML = "kph";
-}
-function convertToImperial(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#current-temperature");
-  temperatureElement.innerHTML = Math.round(fTemp);
-  let windElement = document.querySelector("#wind");
-  windElement.innerHTML = Math.round(imperialSpeed);
-}
 let fTemp = null;
 let imperialSpeed = null;
 
 let form = document.querySelector("#submit-city");
 form.addEventListener("submit", handleSubmit);
 
-let convertC = document.querySelector("#convertC");
-convertC.addEventListener("click", convertToMetric);
-
-let convertF = document.querySelector("#convertF");
-convertF.addEventListener("click", convertToImperial);
-
 search("London");
-displayForecast();
