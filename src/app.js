@@ -52,7 +52,6 @@ function displayForecast(response) {
       )}°</span>
       </div>
       </div>
-      </div>
       `;
     }
   });
@@ -66,6 +65,7 @@ function displayTemperature(response) {
   cityElement.innerHTML = response.data.city;
   let conditionElement = document.querySelector("#condition");
   conditionElement.innerHTML = response.data.condition.description;
+  fTemp = response.data.temperature.current;
   let temperatureElement = document.querySelector("#current-temperature");
   temperatureElement.innerHTML = Math.round(fTemp);
   let humidityElement = document.querySelector("#humidity");
@@ -76,7 +76,6 @@ function displayTemperature(response) {
   dateElement.innerHTML = formatDate(response.data.time * 1000);
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src", response.data.condition.icon_url);
-  fTemp = response.data.temperature.current;
   imperialSpeed = response.data.wind.speed;
 
   getForecast(response.data.city);
