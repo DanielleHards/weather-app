@@ -1,14 +1,50 @@
 body {
   font-family: "Roboto", sans-serif;
-  color: #407088;
+  color: #be0eaa;
 }
 .appWrapper {
+  max-width: 600px;
+  margin: 30 auto;
+  padding: 20px;
+  border: 5px solid #a45fbe;
+  border-radius: 8px;
+  background: #382f60;
+}
+.spring {
   max-width: 600px;
   margin: 30 auto;
   padding: 20px;
   border: 5px solid #ffb5b5;
   border-radius: 8px;
   background: #ffcbcb;
+  color: #407088;
+}
+.summer {
+  max-width: 600px;
+  margin: 30 auto;
+  padding: 20px;
+  border: 5px solid #be0eaa;
+  border-radius: 8px;
+  background: #ea2ba2;
+  color: #f6ca97;
+}
+.fall {
+  max-width: 600px;
+  margin: 30 auto;
+  padding: 20px;
+  border: 5px solid #b80d57;
+  border-radius: 8px;
+  background: #700961;
+  color: #f6ca97;
+}
+.winter {
+  max-width: 600px;
+  margin: 30 auto;
+  padding: 20px;
+  border: 5px solid #382f60;
+  border-radius: 8px;
+  background: #485188;
+  color: #bbe4e9;
 }
 form {
   margin-top: 25px;
@@ -20,7 +56,7 @@ h1 {
   margin-top: 10px;
 }
 .currentConditionText {
-  color: #f16b98;
+  color: #485188;
 }
 .degrees {
   font-size: small;
@@ -48,11 +84,11 @@ ul {
 }
 .highTemp {
   font-weight: 600;
-  color: #f16b98;
+  color: #4b81ab;
 }
 .lowTemp {
   font-weight: 200;
-  color: #f16b98;
+  color: #4b81ab;
 }
 p {
   text-align: center;

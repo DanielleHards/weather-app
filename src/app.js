@@ -8,6 +8,25 @@ function formatDate(timestamp) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
+  let month = date.getMonth();
+  let appWrapper = document.querySelector(".appWrapper");
+
+  if (month == 11 || month <= 1) {
+    //add winter classes
+    appWrapper.classList.add("winter");
+  }
+  if (month >= 2 && month <= 4) {
+    //add spring classes
+    appWrapper.classList.add("spring");
+  }
+  if (month >= 5 && month <= 7) {
+    //add summer classes
+    appWrapper.classList.add("summer");
+  }
+  if (month >= 8 && month <= 10) {
+    //add fall classes
+    appWrapper.classList.add("fall");
+  }
   let days = [
     "Sunday",
     "Monday",
